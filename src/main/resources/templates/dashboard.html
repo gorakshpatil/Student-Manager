@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head}"></head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/layout :: sidebar}"></div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <!-- Navbar -->
+        <nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+        <div class="content">
+
+            <h2 class="mb-4">Dashboard</h2>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="card text-bg-primary mb-3">
+                        <div class="card-body text-center">
+                            <h5>Total Students</h5>
+                            <h2 th:text="${studentCount}"></h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card text-bg-success mb-3">
+                        <div class="card-body text-center">
+                            <h5>Total Courses</h5>
+                            <h2 th:text="${courseCount}"></h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card text-bg-warning mb-3">
+                        <div class="card-body text-center">
+                            <h5>Total Enrollments</h5>
+                            <h2 th:text="${enrollmentCount}"></h2>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div th:replace="~{fragments/layout :: scripts}"></div>
+
+</body>
+</html>
