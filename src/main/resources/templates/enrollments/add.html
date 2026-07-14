@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head}"></head>
+
+<body>
+
+<div id="wrapper">
+
+    <div th:replace="~{fragments/layout :: sidebar}"></div>
+
+    <div id="page-content-wrapper">
+
+        <nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+        <div class="content">
+
+            <h2>Add Enrollment</h2>
+
+            <form th:action="@{/enrollments/save}"
+                  th:object="${enrollment}"
+                  method="post">
+
+                <!-- Student -->
+
+                <div class="mb-3">
+
+                    <label>Student</label>
+
+                    <select th:field="*{student.id}"
+                            class="form-select">
+
+                        <option value="">
+                            Select Student
+                        </option>
+
+                        <option
+                            th:each="student : ${students}"
+                            th:value="${student.id}"
+                            th:text="${student.name}">
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- Course -->
+
+                <div class="mb-3">
+
+                    <label>Course</label>
+
+                    <select th:field="*{course.id}"
+                            class="form-select">
+
+                        <option value="">
+                            Select Course
+                        </option>
+
+                        <option
+                            th:each="course : ${courses}"
+                            th:value="${course.id}"
+                            th:text="${course.courseName}">
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- Date -->
+
+                <div class="mb-3">
+
+                    <label>Enrollment Date</label>
+
+                    <input type="date"
+                           th:field="*{enrollmentDate}"
+                           class="form-control">
+
+                </div>
+
+                <!-- Status -->
+
+                <div class="mb-3">
+
+                    <label>Status</label>
+
+                    <select th:field="*{status}"
+                            class="form-select">
+
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="COMPLETED">COMPLETED</option>
+                        <option value="CANCELLED">CANCELLED</option>
+
+                    </select>
+
+                </div>
+
+                <button class="btn btn-success">
+                    Save Enrollment
+                </button>
+
+                <a th:href="@{/enrollments}"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div th:replace="~{fragments/layout :: scripts}"></div>
+
+</body>
+</html>

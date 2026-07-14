@@ -5,19 +5,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entities.Course;
 import com.example.demo.entities.Enrollment;
+import com.example.demo.entities.Student;
+import com.example.demo.repository.CourseRepository;
 import com.example.demo.repository.EnrollmentRepository;
+import com.example.demo.repository.StudentRepository;
 
 @Service
 public class EnrollmentService {
+	
+
+	@Autowired
+	private StudentRepository studentRepository;
+
+	@Autowired
+	private CourseRepository courseRepository;
 
 	@Autowired
 	private EnrollmentRepository enrollmentRepository;
-
-	// Save Enrollment
-	public Enrollment saveEnrollment(Enrollment enrollment) {
-		return enrollmentRepository.save(enrollment);
-	}
 
 	// Get All Enrollments
 	public List<Enrollment> getAllEnrollments() {
@@ -33,13 +39,42 @@ public class EnrollmentService {
 		return enrollmentRepository.findById(id).orElse(null);
 	}
 
-	// Update Enrollment
-	public Enrollment updateEnrollment(Enrollment enrollment) {
-		return enrollmentRepository.save(enrollment);
-	}
 
 	// Delete Enrollment
 	public void deleteEnrollment(Long id) {
 		enrollmentRepository.deleteById(id);
 	}
+	
+	public Enrollment saveEnrollment(Enrollment enrollment) {
+
+	    Student student = studentRepository
+	            .findById(enrollment.getStudent().getId())
+	            .orElseThrow(() -> new RuntimeException("Student not found"));
+
+	    Course course = courseRepository
+	            .findById(enrollment.getCourse().getId())
+	            .orElseThrow(() -> new RuntimeException("Course not found"));
+
+	    enrollment.setStudent(student);
+	    enrollment.setCourse(course);
+
+	    return enrollmentRepository.save(enrollment);
+	}
+	
+	public Enrollment updateEnrollment(Enrollment enrollment) {
+
+	    Student student = studentRepository
+	            .findById(enrollment.getStudent().getId())
+	            .orElseThrow(() -> new RuntimeException("Student not found"));
+
+	    Course course = courseRepository
+	            .findById(enrollment.getCourse().getId())
+	            .orElseThrow(() -> new RuntimeException("Course not found"));
+
+	    enrollment.setStudent(student);
+	    enrollment.setCourse(course);
+
+	    return enrollmentRepository.save(enrollment);
+	}
+	
 }
