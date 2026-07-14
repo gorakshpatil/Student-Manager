@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head}"></head>
+
+<body>
+
+<div id="wrapper">
+
+    <div th:replace="~{fragments/layout :: sidebar}"></div>
+
+    <div id="page-content-wrapper">
+
+        <nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+        <div class="content">
+
+            <div class="d-flex justify-content-between mb-3">
+
+                <h2>Enrollment List</h2>
+
+                <a th:href="@{/enrollments/add}"
+                   class="btn btn-primary">
+                    Add Enrollment
+                </a>
+
+            </div>
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Student</th>
+                        <th>Course</th>
+                        <th>Enrollment Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr th:each="enrollment : ${enrollments}">
+
+                        <td th:text="${enrollment.id}"></td>
+
+                        <td th:text="${enrollment.student.name}"></td>
+
+                        <td th:text="${enrollment.course.courseName}"></td>
+
+                        <td th:text="${enrollment.enrollmentDate}"></td>
+
+                        <td th:text="${enrollment.status}"></td>
+
+                        <td>
+
+                            <a href="#"
+                               class="btn btn-info btn-sm">
+                                View
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-warning btn-sm">
+                                Edit
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-danger btn-sm">
+                                Delete
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div th:replace="~{fragments/layout :: scripts}"></div>
+
+</body>
+</html>

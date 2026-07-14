@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.Student;
 import com.example.demo.repository.StudentRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class StudentService {
@@ -38,4 +40,14 @@ public class StudentService {
 	public void deleteStudent(Long id) {
 		studentRepository.deleteById(id);
 	}
+
+	public List<Student> searchStudents(String keyword) {
+
+		return studentRepository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(keyword, keyword);
+	}
+
+	public Page<Student> getStudentsWithPagination(Pageable pageable) {
+		return studentRepository.findAll(pageable);
+	}
+
 }
